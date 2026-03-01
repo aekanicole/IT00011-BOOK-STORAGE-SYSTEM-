@@ -1,6 +1,43 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+import sqlite3
 
+conn = sqlite3.connect("library.db")
+cursor = conn.cursor()
+
+# -----------------------------
+# TABLES
+# -----------------------------
+
+# ----- USER INFORMATION -----
+cursor.execute("""CREATE TABLE IF NOT EXISTS members (
+               member_id INTEGER PRIMARY KEY AUTOINCREMENT,
+               email TEXT UNIQUE NOT NULL,
+               password TEXT NOT NULL,
+               full_name TEXT,
+               age INTEGER,
+               student_number TEXT)""")
+
+# ----- BOOK INFORMATION -----
+cursor.execute("""CREATE TABLE IF NOT EXISTS books (
+               book_id INTEGER PRIMARY KEY AUTOINCREMENT,
+               title TEXT NOT NULL,
+               genre TEXT NOT NULL,
+               author TEXT,
+               date_published TEXT,
+               status TEXT DEFAULT 'AVAILABLE'
+               )""")
+
+# ----- TRANSACTION INFORMATION -----
+cursor.execute("""CREATE TABLE IF NOT EXISTS transactions(
+               trans_id INTEGER PRIMARY KEY AUTOINCREMENT,
+               member_id INTEGER,
+               book_id INTEGER,
+               borrow_date TEXT,
+               duration INTEGER,
+               FOREIGN KEY(member_id) REFERENCES members(member_id),
+               FOREIGN KEY(book_id) REFERENCES books(book_id)
+               )""")
 # -----------------------------
 # COLOR THEME
 # -----------------------------
