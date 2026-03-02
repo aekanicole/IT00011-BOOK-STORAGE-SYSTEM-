@@ -1,3 +1,5 @@
+# NO RESTRICTIONS YET
+
 import tkinter as tk
 from tkinter import ttk, messagebox
 import mysql.connector
@@ -272,4 +274,5 @@ class SignupPage(tk.Frame):
 # -----------------------------
 if __name__ == "__main__":
     app = LibraryApp()
+
     app.mainloop()
